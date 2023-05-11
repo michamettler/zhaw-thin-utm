@@ -66,12 +66,16 @@ public class TuringMachine {
         return calculationIndex;
     }
 
+    public void adjustCalculationIndex() {
+        calculationIndex++;
+    }
+
     public int getGoedelNumber() {
         return goedelNumber;
     }
 
     public void print() {
-        System.out.println("Current State: " + (currentState != null ? currentState.toString() : ""));
+        System.out.println("\nCurrent State: " + (currentState != null ? currentState.toString() : ""));
         StringBuilder stringBuilderBand = new StringBuilder();
         StringBuilder stringBuilderIndex = new StringBuilder();
         for (int i = 0; i < 30; i++) {

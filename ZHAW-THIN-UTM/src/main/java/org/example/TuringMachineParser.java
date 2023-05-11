@@ -58,12 +58,38 @@ public class TuringMachineParser {
         for (Transition transition : transitions) {
             System.out.println(transition.toString());
         }
-        System.out.println("\n");
     }
 
     public void run() throws InterruptedException {
         tm.initializeTape(calculationValues);
+
+        boolean isNotEndState = true;
+        tm.setCurrentState(new State(1));
         log();
+
+        while(isNotEndState) {
+            List<Transition> currentTransitions = transitions.stream().filter(item ->
+                    item.getCompositionFrom().getState().getStateNumber() == tm.getCurrentState().getStateNumber()).toList();
+
+            String currentSymbol = tm.readSymbol();
+            var foundTransistion = currentTransitions.stream().filter(item ->
+                    item.getCompositionFrom().getReadValue().value.equals(currentSymbol)).findAny();
+
+            if (foundTransistion.isPresent()) {
+                tm.writeSymbol(foundTransistion.get().getCompositionTo().getDirection(),
+                        foundTransistion.get().getCompositionTo().getWriteValue());
+                tm.setCurrentState(foundTransistion.get().getCompositionTo().getState());
+                tm.adjustCalculationIndex();
+                log();
+            } else {
+                isNotEndState = false;
+            }
+        }
+
+        System.out.println("\nTM cant get further");
+        if (mode == Mode.RUN) {
+            tm.print();
+        }
     }
 
     private int readState() {
