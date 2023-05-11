@@ -2,15 +2,14 @@ package org.example.model.composition;
 
 import org.example.model.State;
 import org.example.util.Alphabet;
-import org.example.util.SymbolMapping;
 
 public abstract class Composition {
 
-    private State state;
+    private final State state;
 
-    private SymbolMapping bandValue;
+    private final Alphabet bandValue;
 
-    public Composition(State state, SymbolMapping bandValue) {
+    public Composition(State state, Alphabet bandValue) {
         this.state = state;
         this.bandValue = bandValue;
     }
@@ -19,7 +18,7 @@ public abstract class Composition {
         return state;
     }
 
-    public SymbolMapping getBandValue() {
+    public Alphabet getBandValue() {
         return bandValue;
     }
 }

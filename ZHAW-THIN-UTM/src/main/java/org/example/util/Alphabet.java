@@ -1,8 +1,8 @@
 package org.example.util;
 
 public enum Alphabet {
-    ONE("1"),
     ZERO("0"),
+    ONE("1"),
     EMPTY("_");
 
     public final String value;

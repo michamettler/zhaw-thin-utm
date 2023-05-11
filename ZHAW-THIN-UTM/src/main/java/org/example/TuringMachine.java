@@ -8,7 +8,10 @@ import org.example.util.Alphabet;
 import org.example.util.Direction;
 import org.example.util.SymbolMapping;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Objects;
 
 public class TuringMachine {
     private LinkedList<Alphabet> band = new LinkedList<>();
@@ -40,14 +43,14 @@ public class TuringMachine {
         return index;
     }
 
-    private SymbolMapping readSymbol() {
+    private Alphabet readSymbol() {
         StringBuilder symbols = new StringBuilder();
         String nextSymbol = code.next();
         while (code.hasNext() && !nextSymbol.equals("1")) {
             symbols.append(nextSymbol);
             nextSymbol = code.next();
         }
-        return SymbolMapping.findEnum(symbols.toString());
+        return Alphabet.valueOf(Objects.requireNonNull(SymbolMapping.findEnum(symbols.toString())).name());
     }
 
     private Direction readDirection() {

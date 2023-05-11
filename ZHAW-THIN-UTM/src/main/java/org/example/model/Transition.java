@@ -5,8 +5,8 @@ import org.example.model.composition.CompositionTo;
 
 public class Transition {
 
-    private CompositionFrom compositionFrom;
-    private CompositionTo compositionTo;
+    private final CompositionFrom compositionFrom;
+    private final CompositionTo compositionTo;
 
     public Transition(CompositionFrom compositionFrom, CompositionTo compositionTo) {
         this.compositionFrom = compositionFrom;

@@ -1,12 +1,10 @@
 package org.example.model;
 
-import java.util.Optional;
-
 public class State {
 
-    private int stateNumber;
+    private final int stateNumber;
 
-    private boolean accepting;
+    private final boolean accepting;
 
     public State(int stateNumber, boolean accepting) {
         this.stateNumber = stateNumber;
