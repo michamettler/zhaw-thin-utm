@@ -10,25 +10,34 @@ import org.example.util.Mode;
 import org.example.util.SymbolMapping;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class TuringMachineParser {
 
     private Iterator<String> code;
+    private String calculationValues;
     private TuringMachine tm;
     private Mode mode;
     private List<Transition> transitions = new ArrayList<>();
 
-    public TuringMachineParser(String code, Mode mode) {
+    public TuringMachineParser(String input, Mode mode) {
         this.mode = mode;
 
-        if (code.charAt(0) != '0') {
-            tm = new TuringMachine(code.charAt(0));
-            code = code.substring(1);
+        if (input.charAt(0) != '0') {
+            tm = new TuringMachine(Integer.parseInt(String.valueOf(input.charAt(0))));
+            input = input.substring(1);
         } else {
             tm = new TuringMachine();
         }
 
-        this.code = Arrays.stream(code.split("")).iterator();
+        List<String> splittedInput = Arrays.asList(input.split("111"));
+        this.code = Arrays.stream(splittedInput.get(0).split("")).iterator();
+        if (splittedInput.size() > 1) {
+            splittedInput.remove(0);
+            for (String calcValue : splittedInput) {
+                this.calculationValues += calcValue;
+            }
+        }
     }
 
     public void parse() {
@@ -45,15 +54,15 @@ public class TuringMachineParser {
             System.out.println("TM Nr.:" + tm.getGoedelNumber());
         }
         System.out.println("States:");
-        System.out.println("States:");
         for (Transition transition : transitions) {
             System.out.println(transition.toString());
-            System.out.println("\n\n");
         }
+        System.out.println("\n");
     }
 
-    public void run() {
-        //TODO
+    public void run() throws InterruptedException {
+        //TODO run program
+        log();
     }
 
     private int readState() {
@@ -95,6 +104,13 @@ public class TuringMachineParser {
     private void checkTransition() {
         if (code.hasNext() && !code.next().equals("1")) {
             throw new IllegalArgumentException();
+        }
+    }
+
+    private void log() throws InterruptedException {
+        if (mode == Mode.STEP) {
+            tm.print();
+            TimeUnit.SECONDS.sleep(1);
         }
     }
 

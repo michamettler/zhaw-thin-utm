@@ -30,7 +30,7 @@ public class TuringMachine {
     }
 
     public void initializeTape() {
-        for (int i = 0; i < 29; i++) {
+        for (int i = 0; i < 30; i++) {
             band.add(Alphabet.EMPTY.value);
         }
     }
@@ -67,7 +67,7 @@ public class TuringMachine {
     public void print() {
         System.out.println("Current State: " + currentState.toString());
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < 29; i++) {
+        for (int i = 0; i < 30; i++) {
             if (i == headPosition) {
                 stringBuilder.append(ANSI_GREEN + "| ").append(band.get(i)).append(" |" + ANSI_RESET);
             } else {
