@@ -20,4 +20,9 @@ public class Transition {
     public CompositionTo getCompositionTo() {
         return compositionTo;
     }
+
+    @Override
+    public String toString() {
+        return compositionFrom + " = " + compositionTo;
+    }
 }

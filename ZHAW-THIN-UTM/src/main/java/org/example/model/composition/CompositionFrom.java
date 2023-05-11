@@ -14,4 +14,8 @@ public class CompositionFrom extends Composition {
         return getBandValue();
     }
 
+    @Override
+    public String toString() {
+        return "δ(" + getState().toString() + "," + getReadValue() + ")";
+    }
 }

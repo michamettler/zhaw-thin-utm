@@ -20,4 +20,9 @@ public class State {
     public boolean isAccepting() {
         return accepting;
     }
+
+    @Override
+    public String toString() {
+        return "q" + stateNumber;
+    }
 }

@@ -1,8 +1,7 @@
 package org.example.model.composition;
 
-import org.example.model.Direction;
+import org.example.util.Direction;
 import org.example.model.State;
-import org.example.util.Alphabet;
 import org.example.util.SymbolMapping;
 
 public class CompositionTo extends Composition {
@@ -20,5 +19,10 @@ public class CompositionTo extends Composition {
 
     public Direction getDirection() {
         return direction;
+    }
+
+    @Override
+    public String toString() {
+        return "δ(" + getState().toString() + "," + getWriteValue() + "," + direction + ")";
     }
 }

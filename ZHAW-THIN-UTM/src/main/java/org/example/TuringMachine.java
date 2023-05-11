@@ -1,8 +1,11 @@
 package org.example;
 
 import org.example.model.State;
+import org.example.model.Transition;
 import org.example.model.composition.CompositionFrom;
+import org.example.model.composition.CompositionTo;
 import org.example.util.Alphabet;
+import org.example.util.Direction;
 import org.example.util.SymbolMapping;
 
 import java.util.*;
@@ -18,8 +21,14 @@ public class TuringMachine {
 
     public void run() {
         while(code.hasNext()) {
-            CompositionFrom from = new CompositionFrom(new State(readState(), false), readSymbol());
-            System.out.println("q" + from.getState().getStateNumber() + " read value " + from.getReadValue());
+            String nextSymbol;
+            do {
+                nextSymbol = code.next();
+                CompositionFrom from = new CompositionFrom(new State(readState(), false), readSymbol());
+                CompositionTo to = new CompositionTo(new State(readState(), false), readSymbol(), readDirection());
+                Transition transition = new Transition(from, to);
+                System.out.println(transition);
+            } while (code.hasNext() && nextSymbol.equals("11"));
         }
     }
 
@@ -39,6 +48,16 @@ public class TuringMachine {
             nextSymbol = code.next();
         }
         return SymbolMapping.findEnum(symbols.toString());
+    }
+
+    private Direction readDirection() {
+        StringBuilder symbols = new StringBuilder();
+        String nextSymbol = code.next();
+        while (code.hasNext() && !nextSymbol.equals("1")) {
+            symbols.append(nextSymbol);
+            nextSymbol = code.next();
+        }
+        return Direction.findEnum(symbols.toString());
     }
 
 
