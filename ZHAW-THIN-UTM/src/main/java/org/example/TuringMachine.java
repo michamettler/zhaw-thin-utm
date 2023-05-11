@@ -16,22 +16,28 @@ public class TuringMachine {
     private int headPosition = 15;
 
     private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_GREY = "\u001B[37m";
     private static final String ANSI_RESET = "\u001B[0m";
 
     public TuringMachine(int goedelNumber) {
         this.goedelNumber = goedelNumber;
         band = new ArrayList<>();
-        initializeTape();
     }
 
     public TuringMachine() {
         band = new ArrayList<>();
-        initializeTape();
     }
 
-    public void initializeTape() {
-        for (int i = 0; i < 30; i++) {
+    public void initializeTape(String calculationValues) {
+        for (int i = 0; i < 15; i++) {
             band.add(Alphabet.EMPTY.value);
+        }
+        for (int i = 0; i < 15; i++) {
+            if (i < calculationValues.length()) {
+                band.add(String.valueOf(calculationValues.charAt(i)));
+            } else {
+                band.add(Alphabet.EMPTY.value);
+            }
         }
     }
 
@@ -65,18 +71,43 @@ public class TuringMachine {
     }
 
     public void print() {
-        System.out.println("Current State: " + currentState.toString());
-        StringBuilder stringBuilder = new StringBuilder();
+        System.out.println("Current State: " + (currentState != null ? currentState.toString() : ""));
+        StringBuilder stringBuilderBand = new StringBuilder();
+        StringBuilder stringBuilderIndex = new StringBuilder();
         for (int i = 0; i < 30; i++) {
             if (i == headPosition) {
-                stringBuilder.append(ANSI_GREEN + "| ").append(band.get(i)).append(" |" + ANSI_RESET);
+                if (band.get(i).length() == 1) {
+                    stringBuilderBand.append(ANSI_GREEN + " | ").append(band.get(i)).append(" " + ANSI_RESET);
+                } else {
+                    stringBuilderBand.append(ANSI_GREEN + " | ").append(band.get(i)).append(ANSI_RESET);
+                }
             } else {
-                stringBuilder.append("| ").append(band.get(i)).append(" |");
+                if (band.get(i).length() == 1) {
+                    stringBuilderBand.append(" | ").append(band.get(i)).append(" ");
+                } else {
+                    stringBuilderBand.append(" | ").append(band.get(i));
+                }
+            }
+        }
+
+        for (int i = 0; i < 30; i++) {
+            if (i == headPosition) {
+                if ((String.valueOf(i)).length() == 1) {
+                    stringBuilderIndex.append(ANSI_GREEN + " | ").append(i).append(" " + ANSI_RESET);
+                } else {
+                    stringBuilderIndex.append(ANSI_GREEN + " | ").append(i).append(ANSI_RESET);
+                }
+            } else {
+                if ((String.valueOf(i)).length() == 1) {
+                    stringBuilderIndex.append(ANSI_GREY + " | ").append(i).append(" " + ANSI_RESET);
+                } else {
+                    stringBuilderIndex.append(ANSI_GREY + " | ").append(i).append(ANSI_RESET);
+                }
             }
         }
         System.out.println("Band:");
-        System.out.println(stringBuilder);
+        System.out.println(stringBuilderBand);
+        System.out.println(stringBuilderIndex);
         System.out.println("Amount of calculations: " + calculationIndex);
-        System.out.println("--------------------------------------------\n\n");
     }
 }

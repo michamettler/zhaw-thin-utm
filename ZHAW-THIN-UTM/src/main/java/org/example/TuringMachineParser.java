@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class TuringMachineParser {
 
     private Iterator<String> code;
-    private String calculationValues;
+    private String calculationValues = "";
     private TuringMachine tm;
     private Mode mode;
     private List<Transition> transitions = new ArrayList<>();
@@ -30,7 +30,7 @@ public class TuringMachineParser {
             tm = new TuringMachine();
         }
 
-        List<String> splittedInput = Arrays.asList(input.split("111"));
+        List<String> splittedInput = new ArrayList<>(Arrays.asList(input.split("111")));
         this.code = Arrays.stream(splittedInput.get(0).split("")).iterator();
         if (splittedInput.size() > 1) {
             splittedInput.remove(0);
@@ -41,6 +41,7 @@ public class TuringMachineParser {
     }
 
     public void parse() {
+        System.out.println("\n");
         do {
             CompositionFrom from = new CompositionFrom(new State(readState()), readSymbol());
             CompositionTo to = new CompositionTo(new State(readState()), readSymbol(), readDirection());
@@ -61,7 +62,7 @@ public class TuringMachineParser {
     }
 
     public void run() throws InterruptedException {
-        //TODO run program
+        tm.initializeTape(calculationValues);
         log();
     }
 
