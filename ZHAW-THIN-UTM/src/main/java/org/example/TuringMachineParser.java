@@ -14,11 +14,11 @@ import java.util.concurrent.TimeUnit;
 
 public class TuringMachineParser {
 
-    private Iterator<String> code;
+    private final Iterator<String> code;
     private String calculationValues = "";
-    private TuringMachine tm;
-    private Mode mode;
-    private List<Transition> transitions = new ArrayList<>();
+    private final TuringMachine tm;
+    private final Mode mode;
+    private final List<Transition> transitions = new ArrayList<>();
 
     public TuringMachineParser(String input, Mode mode) {
         this.mode = mode;
@@ -67,7 +67,7 @@ public class TuringMachineParser {
         tm.setCurrentState(new State(1));
         log();
 
-        while(isNotEndState) {
+        while (isNotEndState) {
             List<Transition> currentTransitions = transitions.stream().filter(item ->
                     item.getCompositionFrom().getState().getStateNumber() == tm.getCurrentState().getStateNumber()).toList();
 

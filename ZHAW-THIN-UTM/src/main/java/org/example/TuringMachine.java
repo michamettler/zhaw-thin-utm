@@ -9,15 +9,14 @@ import java.util.List;
 
 public class TuringMachine {
 
-    private int goedelNumber;
-    private State currentState;
-    private int calculationIndex = 0;
-    private List<String> band;
-    private int headPosition = 15;
-
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_GREY = "\u001B[37m";
     private static final String ANSI_RESET = "\u001B[0m";
+    private int goedelNumber;
+    private State currentState;
+    private int calculationIndex = 0;
+    private final List<String> band;
+    private int headPosition = 15;
 
     public TuringMachine(int goedelNumber) {
         this.goedelNumber = goedelNumber;
