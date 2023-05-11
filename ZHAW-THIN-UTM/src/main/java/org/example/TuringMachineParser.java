@@ -6,18 +6,21 @@ import org.example.model.composition.CompositionFrom;
 import org.example.model.composition.CompositionTo;
 import org.example.util.Alphabet;
 import org.example.util.Direction;
+import org.example.util.Mode;
 import org.example.util.SymbolMapping;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 public class TuringMachineParser {
 
     private Iterator<String> code;
-    private TuringMachine tm = new TuringMachine();
+    private TuringMachine tm;
+    private Mode mode;
+    private List<Transition> transitions = new ArrayList<>();
 
-    public TuringMachineParser(String code) {
+    public TuringMachineParser(String code, Mode mode) {
+        this.mode = mode;
+
         if (code.charAt(0) != '0') {
             tm = new TuringMachine(code.charAt(0));
             code = code.substring(1);
@@ -28,15 +31,29 @@ public class TuringMachineParser {
         this.code = Arrays.stream(code.split("")).iterator();
     }
 
-    public void run() {
+    public void parse() {
         do {
-            CompositionFrom from = new CompositionFrom(new State(readState(), false), readSymbol());
-            CompositionTo to = new CompositionTo(new State(readState(), false), readSymbol(), readDirection());
+            CompositionFrom from = new CompositionFrom(new State(readState()), readSymbol());
+            CompositionTo to = new CompositionTo(new State(readState()), readSymbol(), readDirection());
             Transition transition = new Transition(from, to);
-            System.out.println(transition);
+            transitions.add(transition);
 
             checkTransition();
         } while (code.hasNext());
+
+        if (tm.getGoedelNumber() != 0) {
+            System.out.println("TM Nr.:" + tm.getGoedelNumber());
+        }
+        System.out.println("States:");
+        System.out.println("States:");
+        for (Transition transition : transitions) {
+            System.out.println(transition.toString());
+            System.out.println("\n\n");
+        }
+    }
+
+    public void run() {
+        //TODO
     }
 
     private int readState() {

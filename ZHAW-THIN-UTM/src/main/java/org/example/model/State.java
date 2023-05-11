@@ -4,19 +4,12 @@ public class State {
 
     private final int stateNumber;
 
-    private final boolean accepting;
-
-    public State(int stateNumber, boolean accepting) {
+    public State(int stateNumber) {
         this.stateNumber = stateNumber;
-        this.accepting = accepting;
     }
 
     public int getStateNumber() {
         return stateNumber;
-    }
-
-    public boolean isAccepting() {
-        return accepting;
     }
 
     @Override
