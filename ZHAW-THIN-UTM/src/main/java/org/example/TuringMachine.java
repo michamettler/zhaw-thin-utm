@@ -28,14 +28,31 @@ public class TuringMachine {
     }
 
     public void initializeTape(String calculationValues) {
-        for (int i = 0; i < 15; i++) {
-            band.add(Alphabet.EMPTY.value);
-        }
-        for (int i = 0; i < 15; i++) {
-            if (i < calculationValues.length()) {
-                band.add(String.valueOf(calculationValues.charAt(i)));
-            } else {
-                band.add(Alphabet.EMPTY.value);
+        if (calculationValues.length() <= 15) {
+            for (int i = 0; i < 15; i++) {
+                band.add(Alphabet.ZERO.value);
+                //band.add(Alphabet.EMPTY.value);
+            }
+            for (int i = 0; i < 15; i++) {
+                if (i < calculationValues.length()) {
+                    band.add(String.valueOf(calculationValues.charAt(i)));
+                } else {
+                    band.add(Alphabet.ZERO.value);
+                    //band.add(Alphabet.EMPTY.value);
+                }
+            }
+        } else {
+            for (int i = 0; i < 15; i++) {
+                band.add(Alphabet.ZERO.value);
+                //band.add(Alphabet.EMPTY.value);
+            }
+            for (int i = 0; i < calculationValues.length(); i++) {
+                if (i < calculationValues.length()) {
+                    band.add(String.valueOf(calculationValues.charAt(i)));
+                } else {
+                    band.add(Alphabet.ZERO.value);
+                    //band.add(Alphabet.EMPTY.value);
+                }
             }
         }
     }
@@ -50,6 +67,9 @@ public class TuringMachine {
             headPosition--;
         } else if (direction == Direction.R) {
             headPosition++;
+            if (headPosition == band.size()) {
+                band.add("0");
+            }
         }
     }
 
@@ -77,7 +97,7 @@ public class TuringMachine {
         System.out.println("\nCurrent State: " + (currentState != null ? currentState.toString() : ""));
         StringBuilder stringBuilderBand = new StringBuilder();
         StringBuilder stringBuilderIndex = new StringBuilder();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < band.size(); i++) {
             if (i == headPosition) {
                 if (band.get(i).length() == 1) {
                     stringBuilderBand.append(ANSI_GREEN + " | ").append(band.get(i)).append(" " + ANSI_RESET);
@@ -93,7 +113,7 @@ public class TuringMachine {
             }
         }
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < band.size(); i++) {
             if (i == headPosition) {
                 if ((String.valueOf(i)).length() == 1) {
                     stringBuilderIndex.append(ANSI_GREEN + " | ").append(i).append(" " + ANSI_RESET);

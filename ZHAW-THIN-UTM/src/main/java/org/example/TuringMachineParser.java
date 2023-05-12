@@ -137,7 +137,7 @@ public class TuringMachineParser {
     private void log() throws InterruptedException {
         if (mode == Mode.STEP) {
             tm.print();
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.MILLISECONDS.sleep(1);
         }
     }
 
