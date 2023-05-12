@@ -30,7 +30,7 @@ public class TuringMachineParser {
             tm = new TuringMachine();
         }
 
-        List<String> splittedInput = new ArrayList<>(Arrays.asList(input.split("111")));
+        List<String> splittedInput = new ArrayList<>(Arrays.asList(input.split("111", 2)));
         this.code = Arrays.stream(splittedInput.get(0).split("")).iterator();
         if (splittedInput.size() > 1) {
             splittedInput.remove(0);
