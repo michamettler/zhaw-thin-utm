@@ -12,10 +12,10 @@ public class TuringMachine {
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_GREY = "\u001B[37m";
     private static final String ANSI_RESET = "\u001B[0m";
+    private final List<String> band;
     private int goedelNumber;
     private State currentState;
     private int calculationIndex = 0;
-    private final List<String> band;
     private int headPosition = 15;
 
     public TuringMachine(int goedelNumber) {
@@ -68,10 +68,6 @@ public class TuringMachine {
 
     public void setCurrentState(State currentState) {
         this.currentState = currentState;
-    }
-
-    public int getCalculationIndex() {
-        return calculationIndex;
     }
 
     public void adjustCalculationIndex() {

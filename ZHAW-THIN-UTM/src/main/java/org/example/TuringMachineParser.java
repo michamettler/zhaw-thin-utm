@@ -15,10 +15,10 @@ import java.util.concurrent.TimeUnit;
 public class TuringMachineParser {
 
     private final Iterator<String> code;
-    private String calculationValues = "";
     private final TuringMachine tm;
     private final Mode mode;
     private final List<Transition> transitions = new ArrayList<>();
+    private String calculationValues = "";
 
     public TuringMachineParser(String input, Mode mode) {
         this.mode = mode;

@@ -10,13 +10,4 @@ public enum Alphabet {
     Alphabet(String value) {
         this.value = value;
     }
-
-    public static Alphabet findEnum(String symbol) {
-        for (Alphabet v : values()) {
-            if (v.value.equals(symbol)) {
-                return v;
-            }
-        }
-        return null;
-    }
 }
