@@ -28,31 +28,17 @@ public class TuringMachine {
     }
 
     public void initializeTape(String calculationValues) {
-        if (calculationValues.length() <= 15) {
-            for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 15; i++) {
+            band.add(Alphabet.ZERO.value);
+            //band.add(Alphabet.EMPTY.value);
+        }
+        int bandLength = Math.max(calculationValues.length(), 15);
+        for (int i = 0; i < bandLength; i++) {
+            if (i < calculationValues.length()) {
+                band.add(String.valueOf(calculationValues.charAt(i)));
+            } else {
                 band.add(Alphabet.ZERO.value);
                 //band.add(Alphabet.EMPTY.value);
-            }
-            for (int i = 0; i < 15; i++) {
-                if (i < calculationValues.length()) {
-                    band.add(String.valueOf(calculationValues.charAt(i)));
-                } else {
-                    band.add(Alphabet.ZERO.value);
-                    //band.add(Alphabet.EMPTY.value);
-                }
-            }
-        } else {
-            for (int i = 0; i < 15; i++) {
-                band.add(Alphabet.ZERO.value);
-                //band.add(Alphabet.EMPTY.value);
-            }
-            for (int i = 0; i < calculationValues.length(); i++) {
-                if (i < calculationValues.length()) {
-                    band.add(String.valueOf(calculationValues.charAt(i)));
-                } else {
-                    band.add(Alphabet.ZERO.value);
-                    //band.add(Alphabet.EMPTY.value);
-                }
             }
         }
     }
@@ -65,6 +51,9 @@ public class TuringMachine {
         band.set(headPosition, symbol.value);
         if (direction == Direction.L) {
             headPosition--;
+            if (headPosition == 0) {
+                band.add(0, "0");
+            }
         } else if (direction == Direction.R) {
             headPosition++;
             if (headPosition == band.size()) {
