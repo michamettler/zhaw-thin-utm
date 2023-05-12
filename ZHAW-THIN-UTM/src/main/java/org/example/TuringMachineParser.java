@@ -30,11 +30,11 @@ public class TuringMachineParser {
             tm = new TuringMachine();
         }
 
-        List<String> splittedInput = new ArrayList<>(Arrays.asList(input.split("111", 2)));
-        this.code = Arrays.stream(splittedInput.get(0).split("")).iterator();
-        if (splittedInput.size() > 1) {
-            splittedInput.remove(0);
-            for (String calcValue : splittedInput) {
+        List<String> splitInput = new ArrayList<>(Arrays.asList(input.split("111", 2)));
+        this.code = Arrays.stream(splitInput.get(0).split("")).iterator();
+        if (splitInput.size() > 1) {
+            splitInput.remove(0);
+            for (String calcValue : splitInput) {
                 this.calculationValues += calcValue;
             }
         }
@@ -72,13 +72,13 @@ public class TuringMachineParser {
                     item.getCompositionFrom().getState().getStateNumber() == tm.getCurrentState().getStateNumber()).toList();
 
             String currentSymbol = tm.readSymbol();
-            var foundTransistion = currentTransitions.stream().filter(item ->
+            var foundTransition = currentTransitions.stream().filter(item ->
                     item.getCompositionFrom().getReadValue().value.equals(currentSymbol)).findAny();
 
-            if (foundTransistion.isPresent()) {
-                tm.writeSymbol(foundTransistion.get().getCompositionTo().getDirection(),
-                        foundTransistion.get().getCompositionTo().getWriteValue());
-                tm.setCurrentState(foundTransistion.get().getCompositionTo().getState());
+            if (foundTransition.isPresent()) {
+                tm.writeSymbol(foundTransition.get().getCompositionTo().getDirection(),
+                        foundTransition.get().getCompositionTo().getWriteValue());
+                tm.setCurrentState(foundTransition.get().getCompositionTo().getState());
                 tm.adjustCalculationIndex();
                 log();
             } else {

@@ -29,7 +29,7 @@ public class TuringMachine {
 
     public void initializeTape(String calculationValues) {
         for (int i = 0; i < 15; i++) {
-            band.add(Alphabet.ZERO.value);
+            band.add(Alphabet.ZERO.value); //specific for multiplication tm
             //band.add(Alphabet.EMPTY.value);
         }
         int bandLength = Math.max(calculationValues.length(), 15);
@@ -37,7 +37,7 @@ public class TuringMachine {
             if (i < calculationValues.length()) {
                 band.add(String.valueOf(calculationValues.charAt(i)));
             } else {
-                band.add(Alphabet.ZERO.value);
+                band.add(Alphabet.ZERO.value); //specific for multiplication tm
                 //band.add(Alphabet.EMPTY.value);
             }
         }
