@@ -92,6 +92,10 @@ public class TuringMachineParser {
         }
     }
 
+    public List<String> getBand() {
+        return tm.getBand();
+    }
+
     private int readState() {
         int index = 0;
         while (code.hasNext() && !code.next().equals("1")) {

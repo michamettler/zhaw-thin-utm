@@ -62,6 +62,10 @@ public class TuringMachine {
         }
     }
 
+    public List<String> getBand() {
+        return band;
+    }
+
     public State getCurrentState() {
         return currentState;
     }
